@@ -6,9 +6,9 @@ int[,] GeneratingArray2D()
 {
     Random rnd = new Random();
     int[,] array = new int[rnd.Next(2, 11), rnd.Next(2, 11)];
-    for (int i=0; i<array.GetLength(0); i++)
+    for (int i = 0; i < array.GetLength(0); i++)
     {
-        for (int j=0; j<array.GetLength(1); j++)
+        for (int j = 0; j < array.GetLength(1); j++)
             array[i, j] = rnd.Next(0, 10);
     }
     return array;
@@ -18,9 +18,9 @@ int[,] GeneratingArray2D()
 void OutputingArray2D(int[,] array, string message)
 {
     Console.WriteLine(message);
-    for (int i=0; i<array.GetLength(0); i++)
+    for (int i = 0; i < array.GetLength(0); i++)
     {
-        for (int j=0; j<array.GetLength(1); j++)
+        for (int j = 0; j < array.GetLength(1); j++)
             Console.Write(array[i, j] + " ");
         Console.WriteLine();
     }
@@ -30,19 +30,19 @@ void OutputingArray2D(int[,] array, string message)
 int[,] SortingLineValuesMaxToMinArray2D(int[,] array)
 {
     int indexOfMax, temp;
-    for (int k=0; k<array.GetLength(1); k++)
+    for (int k = 0; k < array.GetLength(1); k++)
     {
-        indexOfMax=k;
-        for (int i=0; i<array.GetLength(0); i++)
+        indexOfMax = k;
+        for (int i = 0; i < array.GetLength(0); i++)
         {
-            for (int j=k; j<array.GetLength(1); j++)
+            for (int j = k; j < array.GetLength(1); j++)
             {
                 if (array[i, j] > array[i, indexOfMax])
-                    indexOfMax = j; 
+                    indexOfMax = j;
             }
-            temp=array[i, indexOfMax];
-            array[i, indexOfMax]=array[i, k];
-            array[i, k]=temp;
+            temp = array[i, indexOfMax];
+            array[i, indexOfMax] = array[i, k];
+            array[i, k] = temp;
         }
     }
     return array;
