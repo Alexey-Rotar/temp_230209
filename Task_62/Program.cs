@@ -1,21 +1,29 @@
 ﻿// Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4. 
 
-// Заполнение массива по спирали
-int[,] SpiralFillingArray2D(int[,] array)
-{      
-    int horizontalPass = 0;
-    int verticalPass = 0;
-    int linePosition = 0;
-    int columnPosition = 0;
-    int value = 1;
-    int right = 0;
-    int down = 0;
-    int left = 0;
-    int up = 0;
+// Генерация пустого массива со случайным количеством строк [3...10] и столбцов [3...10]
+int[,] GeneratingArray2D()
+{
+    Random rnd = new Random();
+    int[,] array = new int[rnd.Next(3, 11), rnd.Next(3, 11)];
+    return array;
+}
 
-    while (array.GetLength(0) > horizontalPass && array.GetLength(1) > verticalPass)
+// Заполнение массива по спирали
+int[,] SpiralArray2DFilling(int[,] array)
+{      
+    int horizontalPass = 0,     // счетчик горизонтальных проходов
+        verticalPass = 0,       // счетчик вертикальных проходов
+        linePosition = 0,       // текущая позиция по строке
+        columnPosition = 0,     // текущая позиция по столбцу           
+        right = 0,              // счетчик шагов вправо
+        down = 0,               // счетчик шагов вниз
+        left = 0,               // счетчик шагов влево
+        up = 0,                 // счетчик шагов вверх
+        value = 1;              // значение
+   
+    while (array.GetLength(0) > horizontalPass && array.GetLength(1) > verticalPass) // пока есть куда двигаться
     {
-        for (right = 0; right < array.GetLength(1) - verticalPass; ++right)
+        for (right = 0; right < array.GetLength(1) - verticalPass && value <= (array.GetLength(0) * array.GetLength(1)); ++right)
         {
             array[linePosition, columnPosition + right] = value;
             value++;
@@ -24,7 +32,7 @@ int[,] SpiralFillingArray2D(int[,] array)
         columnPosition = columnPosition + right - 1;
         horizontalPass++;
 
-        for (down = 0; down < array.GetLength(0) - horizontalPass; ++down)
+        for (down = 0; down < array.GetLength(0) - horizontalPass && value <= (array.GetLength(0) * array.GetLength(1)); ++down)
         {
             array[linePosition + down, columnPosition] = value;
             value++;
@@ -33,7 +41,7 @@ int[,] SpiralFillingArray2D(int[,] array)
         columnPosition--;
         verticalPass++;
 
-        for (left = 0; left < array.GetLength(1) - verticalPass; ++left)
+        for (left = 0; left < array.GetLength(1) - verticalPass && value <= (array.GetLength(0) * array.GetLength(1)); ++left)
         {
             array[linePosition, columnPosition - left] = value;
             value++;
@@ -42,7 +50,7 @@ int[,] SpiralFillingArray2D(int[,] array)
         columnPosition = columnPosition - left + 1;
         horizontalPass++;
 
-        for (up = 0; up < array.GetLength(0) - horizontalPass; ++up)
+        for (up = 0; up < array.GetLength(0) - horizontalPass && value <= (array.GetLength(0) * array.GetLength(1)); ++up)
         {
             array[linePosition - up, columnPosition] = value;
             value++;
@@ -66,7 +74,6 @@ void OutputingArray2D(int[,] array, string message)
     }
 }
 
-int[,] array = new int[5, 10];
+int[,] array = GeneratingArray2D();
 OutputingArray2D(array, "Пустой массив: ");
-OutputingArray2D(SpiralFillingArray2D(array), "Заполненный массив: ");
-
+OutputingArray2D(SpiralArray2DFilling(array), "Заполненный массив: ");
